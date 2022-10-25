@@ -17,7 +17,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
 const checkedIcon = <CheckBoxIcon fontSize="small"/>;
-const SearchbarSelectCheckboxInner = <T, >({
+const SearchbarWithSelectAndFilterInner = <T, >({
                                                placeholder,
                                                searchData = [],
                                                groupBy,
@@ -129,6 +129,6 @@ const SearchbarSelectCheckboxInner = <T, >({
     );
 };
 
-const SearchbarSelectCheckbox = forwardRef(SearchbarSelectCheckboxInner);
+const SearchbarWithSelectAndFilter = forwardRef(SearchbarWithSelectAndFilterInner);
 
-export default SearchbarSelectCheckbox;
+export default SearchbarWithSelectAndFilter;
