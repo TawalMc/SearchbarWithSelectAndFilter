@@ -1,6 +1,6 @@
 import {DummyData, DummyDataType} from "../dummy";
 import {red} from "@mui/material/colors";
-import SearchbarWithSelectAndFilter from "../component/SearchbarWithSelectAndFilter";
+import SearchbarWithSelectAndFilter from "../component/SearchbarWithSelectAndFilter/SearchbarWithSelectAndFilter";
 
 const MUI = () => {
     return (
