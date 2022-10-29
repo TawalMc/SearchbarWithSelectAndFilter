@@ -1,5 +1,5 @@
 import style from './Cards.module.css';
-import { CardProps } from './Card/Card';
+import { CardProps } from './Card';
 import Card from './Card';
 
 export type CardsProps = {
