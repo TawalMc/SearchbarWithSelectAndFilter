@@ -1,22 +1,18 @@
 import { DummyDataType } from '../../dummy';
 import style from './Card.module.css';
 
-export type CardProps = {
-  firstName: string;
-  lastName?: string | null;
-  title: string;
-};
+export type CardProps = DummyDataType;
 
-const Card = ({ firstName, lastName, title }: CardProps) => {
+const Card = (props: CardProps) => {
   return (
     <div className={style.card}>
       <div className={style.container}>
         <h4>
           <b>
-            {firstName} {lastName}
+            {props.firstName} {props?.lastName}
           </b>
         </h4>
-        <p>{title}</p>
+        <p>{props.teams.title}</p>
       </div>
     </div>
   );
