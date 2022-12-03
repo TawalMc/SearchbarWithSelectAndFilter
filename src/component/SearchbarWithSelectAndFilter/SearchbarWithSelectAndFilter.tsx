@@ -1,4 +1,4 @@
-import React, {useMemo, useState, forwardRef, ForwardedRef} from "react";
+import React, {useMemo, useState, useEffect, forwardRef, ForwardedRef} from "react";
 import {
     DEFAULT_SELECT_VALUE,
     SearchbarSelectCheckboxProps,
@@ -11,9 +11,6 @@ import Select, {SelectChangeEvent} from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-
-///
-
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
 const checkedIcon = <CheckBoxIcon fontSize="small"/>;
@@ -36,6 +33,8 @@ const SearchbarWithSelectAndFilterInner = <T, >({
      */
     const [selectedItem, setSelectedItem] = useState(DEFAULT_SELECT_VALUE);
 
+    const [searchList, setSearchList] = useState(new Map<string, T[]>())
+
     /**
      * Functions
      */
@@ -56,21 +55,22 @@ const SearchbarWithSelectAndFilterInner = <T, >({
         return itemsAsList;
     }, [searchData, groupBy]);
 
-    // list of options provided to autocomplete
-    let optionForSearch = useMemo(() => {
-        let optionAsMap = new Map<string, T[]>();
-        let data = searchData;
+    // update list of options provided to autocomplete
+    useEffect(() => {
+        const updateSearchList = new Map(searchList)
+        if(!updateSearchList.has(selectedItem)) {
+            if (selectedItem == DEFAULT_SELECT_VALUE) {
+                updateSearchList.set(DEFAULT_SELECT_VALUE, searchData)
+            } else {
+                updateSearchList.set(
+                    selectedItem,
+                    searchData.filter((v) => groupBy(v) == selectedItem)
+                )
+            }
+            setSearchList(updateSearchList)
+        }
+    }, [selectedItem])
 
-        optionAsMap.set(DEFAULT_SELECT_VALUE, searchData);
-        itemsGroup.forEach((value) => {
-            optionAsMap.set(
-                value,
-                data.filter((v) => groupBy(v) == value)
-            );
-        });
-
-        return optionAsMap;
-    }, [itemsGroup]);
 
     return (
         <div ref={ref} style={{display: "flex", alignItems: "center", width: "500px"}}  {...divProps} >
@@ -105,8 +105,8 @@ const SearchbarWithSelectAndFilterInner = <T, >({
                             height: "auto",
                         },
                     }}
-                    options={optionForSearch.get(selectedItem) ?? []}
-                    groupBy={groupBy}
+                    options={searchList.get(selectedItem) ?? []}
+                    
                     getOptionLabel={(option) => toDisplay(option)}
                     renderOption={(props, option, {selected}) => (
                         <li {...props}>
