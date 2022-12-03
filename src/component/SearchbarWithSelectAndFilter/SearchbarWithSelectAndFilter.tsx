@@ -69,7 +69,7 @@ const SearchbarWithSelectAndFilterInner = <T, >({
             }
             setSearchList(updateSearchList)
         }
-    }, [selectedItem])
+    }, [selectedItem, searchData])
 
 
     return (
