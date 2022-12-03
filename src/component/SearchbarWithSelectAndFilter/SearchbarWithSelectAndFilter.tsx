@@ -47,12 +47,7 @@ const SearchbarWithSelectAndFilterInner = <T, >({
     // get the list of items for drowpdown
     let itemsGroup = useMemo(() => {
         let itemsAsSet = new Set(searchData.map(groupBy));
-        let itemsAsList: string[] = [];
-
-        itemsAsSet.forEach((v) => {
-            if (v !== undefined && v !== null) itemsAsList.push(v);
-        });
-        return itemsAsList;
+        return Array.from(itemsAsSet).filter((v) => v !== undefined && v !== null);
     }, [searchData, groupBy]);
 
     // update list of options provided to autocomplete
