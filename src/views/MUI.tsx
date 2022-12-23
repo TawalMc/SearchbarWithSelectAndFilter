@@ -12,7 +12,7 @@ const MUI = () => {
     <div>
       <SearchbarWithSelectAndFilter
         searchData={DummyData}
-        groupBy={(value: DummyDataType) => value.teams.title}
+        groupBy={(value: DummyDataType) => value?.available}
         toDisplay={(value) => `${value.firstName} ${value.lastName ?? ""}`}
         autoCompleteProps={{
           options: DummyData,
