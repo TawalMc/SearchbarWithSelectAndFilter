@@ -47,8 +47,7 @@ const SearchbarWithSelectAndFilterInner = <T,>({
 
     // will set the selected dropdown's item
     const handleSelectedItemChange = (event: SelectChangeEvent) => {
-        let targetValue = event.target.value
-        setSelectedItem(targetValue)
+        setSelectedItem(event.target.value)
     }
 
     // get the list of items for drowpdown
@@ -65,8 +64,6 @@ const SearchbarWithSelectAndFilterInner = <T,>({
         })
         return Array.from(itemsAsSet)
     }, [searchData, groupBy]);
-
-    // console.log(itemsGroup, 77777777)
 
     // update list of options provided to autocomplete
     useEffect(() => {

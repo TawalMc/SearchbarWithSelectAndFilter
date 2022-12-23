@@ -85,3 +85,12 @@ export interface SearchbarSelectCheckboxProps<T extends unknown> {
      */
     autoCompleteProps?: AutocompleteProps<T, true, false, false>
 }
+
+
+export interface UseSearchbarSelectCheckboxArgs<T extends unknown> {
+    searchData: SearchbarSelectCheckboxProps<T>["searchData"],
+    groupBy: SearchbarSelectCheckboxProps<T>["groupBy"],
+    options?: {
+        uncategorised?: SearchbarSelectCheckboxProps<T>["uncategorised"]
+    }
+}
