@@ -47,9 +47,6 @@ const SearchbarWithSelectAndFilterInner = <T,>({
     // will set the selected dropdown's item
     const handleSelectedItemChange = (event: SelectChangeEvent) => {
         let targetValue = event.target.value
-        /* if (unCategorised) {
-            targetValue = targetValue == undefined || targetValue == null ? UNCATEGORISED_SELECT_VALUE : targetValue;
-        } */
         setSelectedItem(targetValue)
     }
 
@@ -68,7 +65,7 @@ const SearchbarWithSelectAndFilterInner = <T,>({
         return Array.from(itemsAsSet)
     }, [searchData, groupBy]);
 
-    console.log(itemsGroup, 77777777)
+    // console.log(itemsGroup, 77777777)
 
     // update list of options provided to autocomplete
     useEffect(() => {
@@ -79,13 +76,17 @@ const SearchbarWithSelectAndFilterInner = <T,>({
             } else {
                 updateSearchList.set(
                     selectedItem,
-                    searchData.filter((v) => groupBy(v) == selectedItem)
+                    searchData.filter((v) =>  {
+                        const option = groupBy(v)
+                        if (selectedItem == UNCATEGORISED_SELECT_VALUE) {
+                            return option == undefined || option == null 
+                        } else return option == selectedItem
+                    })
                 )
             }
             setSearchList(updateSearchList)
         }
     }, [selectedItem, searchData])
-
 
     return (
         <div ref={ref} style={{ display: "flex", alignItems: "center", width: "500px" }}  {...divProps} >
