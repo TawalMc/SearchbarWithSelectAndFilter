@@ -18,3 +18,16 @@ then install dependencies and run
 $ yarn 
 $ yarn dev
 ```
+
+### Features: done
+
+- [x] dropdown filter
+- [x] autocomplete
+- [x] allow renaming "All" to anything 
+- [x] allow uncategorised data
+- [x] implementation of useSearchbarWithSelectAndFilter
+
+### Features: coming soon
+
+- [ ] multiple/group selection in autocomplete 
+
