@@ -12,7 +12,7 @@ export const DEFAULT_SELECT_VALUE = "668b87f3-d50d-43e0-832e-d5433a469287"
 
 export const UNCATEGORISED_SELECT_VALUE="2fabe0b1-79ea-4aa7-b00f-eaba652dda63"
 
-export interface SearchbarSelectCheckboxProps<T extends unknown> {
+export interface SearchbarWithSelectAndFilterProps<T extends unknown> {
     /**
      * Default placeholder for select options
      */
@@ -84,4 +84,13 @@ export interface SearchbarSelectCheckboxProps<T extends unknown> {
      * Autocomplete props
      */
     autoCompleteProps?: AutocompleteProps<T, true, false, false>
+}
+
+
+export interface UseSearchbarWithSelectAndFilterArgs<T extends unknown> {
+    searchData: SearchbarWithSelectAndFilterProps<T>["searchData"],
+    groupBy: SearchbarWithSelectAndFilterProps<T>["groupBy"],
+    options?: {
+        uncategorised?: SearchbarWithSelectAndFilterProps<T>["uncategorised"]
+    }
 }

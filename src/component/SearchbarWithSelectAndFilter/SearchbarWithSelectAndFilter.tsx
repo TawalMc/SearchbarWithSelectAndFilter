@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect, forwardRef, ForwardedRef } from "react";
 import {
     DEFAULT_SELECT_VALUE,
-    SearchbarSelectCheckboxProps,
+    SearchbarWithSelectAndFilterProps,
     UNCATEGORISED_SELECT_VALUE,
 } from "./types";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
@@ -12,6 +12,8 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import useSearchbarWithSelectAndFilter from "./useSearchbarWithSelectAndFilter";
+
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -30,63 +32,15 @@ const SearchbarWithSelectAndFilterInner = <T,>({
     selectProps,
     firstFormControlProps,
     secondFormControlProps,
-}: SearchbarSelectCheckboxProps<T>,
+}: SearchbarWithSelectAndFilterProps<T>,
     ref: ForwardedRef<HTMLDivElement>,
 ) => {
-    /**
-     * Hooks
-     */
-    const [selectedItem, setSelectedItem] = useState(DEFAULT_SELECT_VALUE);
 
-    const [searchList, setSearchList] = useState(new Map<ReturnType<typeof groupBy>, T[]>())
-
-    /**
-     * Functions
-     */
-
-    // will set the selected dropdown's item
-    const handleSelectedItemChange = (event: SelectChangeEvent) => {
-        let targetValue = event.target.value
-        setSelectedItem(targetValue)
-    }
-
-    // get the list of items for drowpdown
-    let itemsGroup = useMemo(() => {
-        let itemsAsSet = new Set();
-        searchData.forEach(data => {
-            let option = groupBy(data) ?? undefined;
-            if (uncategorised) {
-                option = option == undefined ? UNCATEGORISED_SELECT_VALUE : option
-                itemsAsSet.add(option)
-            } else if (!uncategorised && option != undefined) {
-                itemsAsSet.add(option)
-            }
-        })
-        return Array.from(itemsAsSet)
-    }, [searchData, groupBy]);
-
-    // console.log(itemsGroup, 77777777)
-
-    // update list of options provided to autocomplete
-    useEffect(() => {
-        const updateSearchList = new Map(searchList)
-        if (!updateSearchList.has(selectedItem)) {
-            if (selectedItem == DEFAULT_SELECT_VALUE) {
-                updateSearchList.set(DEFAULT_SELECT_VALUE, searchData)
-            } else {
-                updateSearchList.set(
-                    selectedItem,
-                    searchData.filter((v) =>  {
-                        const option = groupBy(v)
-                        if (selectedItem == UNCATEGORISED_SELECT_VALUE) {
-                            return option == undefined || option == null 
-                        } else return option == selectedItem
-                    })
-                )
-            }
-            setSearchList(updateSearchList)
-        }
-    }, [selectedItem, searchData])
+    const { 
+        filter: { selectedItem, handleSelectedItemChange },
+        autocomplete: {searchList},
+        itemsGroup
+     } = useSearchbarWithSelectAndFilter(searchData, groupBy, {uncategorised})
 
     return (
         <div ref={ref} style={{ display: "flex", alignItems: "center", width: "500px" }}  {...divProps} >
