@@ -2,13 +2,13 @@ import { useState, useMemo, useEffect } from 'react';
 import {
   DEFAULT_SELECT_VALUE,
   UNCATEGORISED_SELECT_VALUE,
-  UseSearchbarSelectCheckboxArgs,
+  UseSearchbarWithSelectAndFilterArgs,
 } from './types';
 
-export const useSearchbarWithFilter = <T>(
-  searchData: UseSearchbarSelectCheckboxArgs<T>["searchData"] = [],
-  groupBy: UseSearchbarSelectCheckboxArgs<T>["groupBy"],
-  options: UseSearchbarSelectCheckboxArgs<T>["options"]) => {
+export const useSearchbarWithSelectAndFilter = <T>(
+  searchData: UseSearchbarWithSelectAndFilterArgs<T>["searchData"] = [],
+  groupBy: UseSearchbarWithSelectAndFilterArgs<T>["groupBy"],
+  options: UseSearchbarWithSelectAndFilterArgs<T>["options"]) => {
   /**
    * Hooks
    */
@@ -70,4 +70,4 @@ export const useSearchbarWithFilter = <T>(
   };
 };
 
-export default useSearchbarWithFilter
+export default useSearchbarWithSelectAndFilter

@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect, forwardRef, ForwardedRef } from "react";
 import {
     DEFAULT_SELECT_VALUE,
-    SearchbarSelectCheckboxProps,
+    SearchbarWithSelectAndFilterProps,
     UNCATEGORISED_SELECT_VALUE,
 } from "./types";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
@@ -12,7 +12,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import useSearchbarWithFilter from "./useSearchbarWithFilter";
+import useSearchbarWithSelectAndFilter from "./useSearchbarWithSelectAndFilter";
 
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
@@ -32,7 +32,7 @@ const SearchbarWithSelectAndFilterInner = <T,>({
     selectProps,
     firstFormControlProps,
     secondFormControlProps,
-}: SearchbarSelectCheckboxProps<T>,
+}: SearchbarWithSelectAndFilterProps<T>,
     ref: ForwardedRef<HTMLDivElement>,
 ) => {
 
@@ -40,7 +40,7 @@ const SearchbarWithSelectAndFilterInner = <T,>({
         filter: { selectedItem, handleSelectedItemChange },
         autocomplete: {searchList},
         itemsGroup
-     } = useSearchbarWithFilter(searchData, groupBy, {uncategorised})
+     } = useSearchbarWithSelectAndFilter(searchData, groupBy, {uncategorised})
 
     return (
         <div ref={ref} style={{ display: "flex", alignItems: "center", width: "500px" }}  {...divProps} >
